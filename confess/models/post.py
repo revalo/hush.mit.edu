@@ -29,7 +29,7 @@ class Post(db.Model):
     @hybrid_property
     def hn_score(self):
         s = self.upvotes - self.downvotes
-        item_hour_age = func.date_part('epoch', func.age(self.timestamp, func.current_timestamp())) / 3600
+        item_hour_age = -1 * func.date_part('epoch', func.age(self.timestamp, func.current_timestamp())) / 3600
         return (s - 1) / func.power((item_hour_age+2), 1.8)
 
     @hybrid_property

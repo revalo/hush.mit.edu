@@ -131,3 +131,32 @@ h3, .ta, .error {
   padding-top: 2rem;
   padding-left: 1rem;
 }
+
+.screen-only {
+    display: block;
+}
+.mobile-only {
+    display: none;
+}
+@media screen and (max-width: 500px) {
+    .screen-only {
+        display: none;
+    }
+    .mobile-only {
+        display: block;
+    }
+}
+
+.footer {
+  font-family: 'Source Code Pro';
+  font-size: 0.8em;
+  font-style: italic;
+  margin: 0 auto;
+  color: #939393;
+  width: max-content;
+  padding: 2rem;
+}
+
+.blurb {
+  padding: 2rem;
+}

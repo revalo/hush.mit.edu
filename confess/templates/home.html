@@ -1,4 +1,7 @@
 {% extends "nav.html" %}
+
+{% block title %}home{% endblock %}
+
 {% block navbody %}
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -36,7 +39,7 @@
 
     {% if posts|length == 1 %}
       <div class="fb-comments-container">
-        <div class="fb-comments" data-href="{{ request.url }}" data-numposts="5"></div>
+       <div class="fb-comments" data-href="{{ request.url }}" data-numposts="5"></div>
       </div>
     {% endif %}
 </div>

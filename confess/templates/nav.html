@@ -1,13 +1,13 @@
 {% extends "wrapper.html" %}
-{% block title %}home{% endblock %}
 {% block head %}
 {% endblock %}
 {% block content %}
 <div class="header">
     <a href="/"><div class="title-container">{{ config['APP_NAME'] }}</div></a>
     {% if user is not none %}
-        <div class="login-container">{{ user.email.split('@')[0] }} &nbsp;
-            <a href="/submit">[submit anonymously]</a>
+        <div class="login-container"><span class="screen-only">{{ user.email.split('@')[0] }} &nbsp;</span>
+            <div class="mobile-only"><a href="/submit">[submit]</a></div>
+            <div class="screen-only"><a href="/submit">[submit anonymously]</a></div>
             <a href="/logout">[logout]</a>
         </div>
     {% else %}
