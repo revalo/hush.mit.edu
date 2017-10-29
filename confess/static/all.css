@@ -1,0 +1,133 @@
+body head {
+  width: 100%;
+}
+
+.nl {
+  color: white;
+}
+
+.header {
+  max-width: 70rem;
+  height: 3rem;
+  background-color: #146eff;
+  margin: 0 auto;
+}
+
+.sub-selector {
+  max-width: 70rem;
+  height: 2rem;
+  background-color: #146eff;
+  margin: 0 auto;
+}
+
+.selector {
+  height: 100%;
+  float: left;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+}
+
+.selected {
+    font-weight: 700;
+}
+
+.title-container {
+  color: white;
+  font-family: 'Source Code Pro';
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 100%;
+  float: left;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.login-container {
+  color: white;
+  font-family: 'Source Code Pro';
+  font-weight: 400;
+  height: 100%;
+  float: right;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.login-container a {
+  color: white;
+}
+
+.spacer {
+    height: 1rem;
+}
+
+.items {
+  max-width: 70rem;
+  margin: 0 auto;
+  font-family: 'Source Code Pro';
+}
+
+.item {
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.uvote, .dvote {
+  color: #4181cd;
+  cursor: pointer;
+}
+
+.clicked {
+  color: red;
+}
+
+.comments {
+  color: black;
+}
+
+.item-body {
+  padding-top: 1rem;
+  font-size: 1.2em;
+  max-height: 10.7rem;
+  overflow: hidden;
+}
+
+.error {
+  font-family: 'Source Code Pro';
+  color: red;
+}
+
+.tc {
+  text-align: center;
+}
+
+h3, .ta, .error {
+  font-family: 'Source Code Pro';
+}
+
+.sb {
+  font-family: 'Source Code Pro';
+}
+
+.np-container {
+  float: right;
+}
+
+.np {
+  font-family: 'Source Code Pro';
+}
+
+.np-end {
+  padding-top: 2rem;
+  padding-left: 1rem;
+}
+
+.fb-comments-container {
+  padding-top: 2rem;
+  padding-left: 1rem;
+}

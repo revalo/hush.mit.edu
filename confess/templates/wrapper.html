@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Stylesheets -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/normalize/normalize.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/semantic/semantic.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='all.css') }}">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Javascript Libraries -->
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/semantic/semantic.min.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Readmore.js/2.2.0/readmore.min.js"></script>
+
+    <!-- Mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#146eff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="/favicon.png?v=1" />
+
+    <title>{% block title %}{% endblock %} &middot; {{ config['APP_NAME'] }}</title>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% block end %}
+    {% endblock %}
+  </body>
+</html>

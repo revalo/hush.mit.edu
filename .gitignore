@@ -1,0 +1,6 @@
+*.pyc
+config.py
+.webassets-cache
+private
+delete_db.py
+constants.py

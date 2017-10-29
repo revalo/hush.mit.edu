@@ -1,0 +1,43 @@
+{% extends "nav.html" %}
+{% block navbody %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=317144125044021';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="items">
+    <div class="np-container">
+      {% if page-1 >= 0 %}<a href="{{ modify_query(p=page-1) }}" class="np">[previous]</a>{% endif %}
+      {% if not last_page %}<a href="{{ modify_query(p=page+1) }}" class="np">[next]</a>{% endif %}
+    </div>
+    {% for post, vote in posts %}
+      <div class="item">
+          <div class="item-header">
+             <a href="/?{{ post.id }}" class="permalink">#{{ post.id }}</a>
+             <i id="uvote-{{ post.id }}" value="{{ post.id }}" class="caret up icon uvote {% if vote > 0 %}clicked{% endif %}"></i>
+             <span id="score-{{ post.id }}" class="score">{{ post.upvotes - post.downvotes }}</span>
+             <i id="dvote-{{ post.id }}" value="{{ post.id }}" class="caret down icon dvote {% if vote < 0 %}clicked{% endif %}"></i>
+             <a href="/?{{ post.id }}" class="comments">[comments]</a>
+          </div>
+          <div class="item-body">
+              {{ post.message }}
+          </div>
+      </div>
+    {% endfor %}
+    
+    <div class="np-end">
+      {% if page-1 >= 0 %}<a href="{{ modify_query(p=page-1) }}" class="np">[previous]</a>{% endif %}
+      {% if not last_page %}<a href="{{ modify_query(p=page+1) }}" class="np">[next]</a>{% endif %}
+    </div>
+
+    {% if posts|length == 1 %}
+      <div class="fb-comments-container">
+        <div class="fb-comments" data-href="{{ request.url }}" data-numposts="5"></div>
+      </div>
+    {% endif %}
+</div>
+{% endblock %}

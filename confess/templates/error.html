@@ -1,0 +1,8 @@
+{% extends "wrapper.html" %}
+{% block title %}error{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+  <div class="error-message">{{ error }}</div><br>
+  <a href="{{ login_url }}">[try login again]</a>
+{% endblock %}

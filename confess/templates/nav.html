@@ -1,0 +1,29 @@
+{% extends "wrapper.html" %}
+{% block title %}home{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<div class="header">
+    <a href="/"><div class="title-container">{{ config['APP_NAME'] }}</div></a>
+    {% if user is not none %}
+        <div class="login-container">{{ user.email.split('@')[0] }} &nbsp;
+            <a href="/submit">[submit anonymously]</a>
+            <a href="/logout">[logout]</a>
+        </div>
+    {% else %}
+        <div class="login-container"><a href="/login">[login]</a></div>
+    {% endif %}
+</div>
+<div class="sub-selector">
+    <a href="/"><div class="selector {% if sel == 'hot' %}selected{% endif %}">[hot]</div></a>
+    <a href="/?s=new"><div class="selector {% if sel == 'new' %}selected{% endif %}">[new]</div></a>
+    <a href="/?s=top"><div class="selector {% if sel == 'top' %}selected{% endif %}">[top]</div></a>
+</div>
+<div class="spacer"></div>
+{% block navbody %}
+{% endblock %}
+{% endblock %}
+
+{% block end %}
+<script src="{{ url_for('static', filename='js/app.js') }}?v=0.01"></script>
+{% endblock %}

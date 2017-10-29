@@ -1,0 +1,11 @@
+Flask==0.11.1
+Flask_Assets==0.12
+Flask_SQLAlchemy==2.1
+httplib2==0.10.3
+requests==2.7.0
+SQLAlchemy==1.0.14
+PyJWT==1.4.2
+psycopg2==2.7.1
+gunicorn==19.7.1
+oic==0.10.0.0
+pyfcm==1.2.9
