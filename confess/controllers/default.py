@@ -73,7 +73,8 @@ def index():
             else:
                 votes.append(0)
     else:
-        votes = [0]*PAGE_SIZE
+        for pp in posts:
+            votes.append(0)
 
     last_page = False
     if len(votes) < PAGE_SIZE:
