@@ -64,8 +64,8 @@ def index():
         posts = Post.query.filter_by(id=p_id)
 
     # This iteration is slow, but since it's only PAGE_SIZE for now, it's kinda fine
+    votes = []
     if user:
-        votes = []
         for pp in posts:
             v = Vote.query.filter((Vote.post_id == pp.id) & (Vote.user == user.id)).first()
             if v:
