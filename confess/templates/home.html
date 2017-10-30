@@ -37,9 +37,9 @@
       {% if not last_page %}<a href="{{ modify_query(p=page+1) }}" class="np">[next]</a>{% endif %}
     </div>
 
-    {% if posts|length == 1 %}
+    {% if p_id >= 0 %}
       <div class="fb-comments-container">
-       <div class="fb-comments" data-href="{{ request.url }}" data-numposts="5"></div>
+       <div class="fb-comments" data-href="{{ request.url }}" data-numposts="10"></div>
       </div>
     {% endif %}
 </div>

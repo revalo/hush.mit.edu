@@ -83,7 +83,7 @@ def index():
                             user=user,
                             posts=zip(posts, votes),
                             sel=sel, page=p,
-                            last_page=last_page)
+                            last_page=last_page, p_id=p_id)
 
 
 def gen_vote_status(final, c):
