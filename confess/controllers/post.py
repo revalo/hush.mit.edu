@@ -7,6 +7,7 @@ from confess.models.post import *
 
 import os
 import datetime
+import humanize
 
 from flask import (
     send_from_directory,
@@ -14,6 +15,9 @@ from flask import (
     redirect,
     render_template
 )
+
+def human_delta(seconds):
+    return humanize.naturaltime(datetime.timedelta(seconds=seconds)).replace(' ago', '')
 
 '''
 Helper function that checks wether the submitted message has any issues.
@@ -25,9 +29,9 @@ def post_validation(message, user):
     if len(message) > MAX_POST_LENGTH:
         return False, "Post cannot exceed %i characters." % MAX_POST_LENGTH
     if (datetime.datetime.now() - user.last_post).total_seconds() < POST_COOLDOWN:
-        return False, "Cannot post multiple times between %i seconds, you have %i seconds left." % (
-                POST_COOLDOWN,
-                POST_COOLDOWN - (datetime.datetime.now() - user.last_post).total_seconds()  
+        return False, "Cannot post multiple times between %s, you have %s left." % (
+                human_delta(POST_COOLDOWN),
+                human_delta(POST_COOLDOWN - (datetime.datetime.now() - user.last_post).total_seconds())
             )
     return True, ""
 
