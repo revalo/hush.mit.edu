@@ -27,7 +27,7 @@
              <a href="/?{{ post.id }}" class="comments">[comments]</a>
           </div>
           <div class="item-body">
-              {{ post.message }}
+              {{ post.message | nl2br }} 
           </div>
       </div>
     {% endfor %}
