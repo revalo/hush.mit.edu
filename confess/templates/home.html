@@ -25,6 +25,7 @@
              <span id="score-{{ post.id }}" class="score">{{ post.upvotes - post.downvotes }}</span>
              <i id="dvote-{{ post.id }}" value="{{ post.id }}" class="caret down icon dvote {% if vote < 0 %}clicked{% endif %}"></i>
              <a href="/?{{ post.id }}" class="comments">[comments]</a>
+             <span class="time">{{ post.timestamp | humanize }}</span>
           </div>
           <div class="item-body">
               {{ post.message | nl2br }} 

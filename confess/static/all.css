@@ -160,3 +160,8 @@ h3, .ta, .error {
 .blurb {
   padding: 2rem;
 }
+
+.time {
+  color: #c3c3c3;
+  font-size: 0.8em;
+}

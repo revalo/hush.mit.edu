@@ -10,3 +10,4 @@ gunicorn==19.7.1
 oic==0.10.0.0
 pyfcm==1.2.9
 humanize==0.5.1
+Flask-Humanize==0.3.0

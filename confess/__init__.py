@@ -3,7 +3,10 @@ from pytz import timezone
 from tzlocal import get_localzone
 
 from flask import Flask
+from flask_humanize import Humanize
+
 app = Flask(__name__)
+h = Humanize(app)
 
 from flask import request
 from werkzeug import url_encode
