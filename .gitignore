@@ -3,3 +3,4 @@ config.py
 .webassets-cache
 private
 constants.py
+analytics.html
