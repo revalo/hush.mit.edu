@@ -19,7 +19,7 @@
       {% if not last_page %}<a href="{{ modify_query(p=page+1) }}" class="np">[next]</a>{% endif %}
     </div>
     {% for post, vote in posts %}
-      <div class="item">
+      <div class="item" score="{{post.hn_score}}">
           <div class="item-header">
              <a href="/?{{ post.id }}" class="permalink">#{{ post.id }}</a>
              <i id="uvote-{{ post.id }}" value="{{ post.id }}" class="caret up icon uvote {% if vote > 0 %}clicked{% endif %}"></i>
