@@ -78,6 +78,7 @@ def index():
                 votes.append(0)
     else:
         for pp in posts:
+            comment_counts.append(Comment.query.filter_by(post_id = pp.id).count())
             votes.append(0)
 
     last_page = False
