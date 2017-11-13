@@ -47,7 +47,7 @@
         {% for comment in comments recursive %}
           <div class="comment" style="padding-left: {{ 1 + comment.level * 2.5 }}rem;">
             <div class="comment-header">
-              <span id="score-{{ comment.comment.id }}" class="score smol">{{ comment.comment.upvotes - comment.comment.downvotes }}</span>
+              <span id="score-comment-{{ comment.comment.id }}" class="score smol">{{ comment.comment.upvotes - comment.comment.downvotes }}</span>
               <i id="uvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret up icon uvote commentv {% if comment.vote > 0 %}clicked{% endif %}"></i>
               <i id="dvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret down icon dvote commentv {% if comment.vote < 0 %}clicked{% endif %}"></i>
 
