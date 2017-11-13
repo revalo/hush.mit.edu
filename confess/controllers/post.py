@@ -23,15 +23,15 @@ def human_delta(seconds):
 Helper function that checks wether the submitted message has any issues.
 Returns a bool and a string with the error message.
 '''
-def post_validation(message, user):
+def post_validation(message, last_post):
     if len(message) == 0:
         return False, "Post cannot be empty."
     if len(message) > MAX_POST_LENGTH:
         return False, "Post cannot exceed %i characters." % MAX_POST_LENGTH
-    if (datetime.datetime.now() - user.last_post).total_seconds() < POST_COOLDOWN:
+    if (datetime.datetime.now() - last_post).total_seconds() < POST_COOLDOWN:
         return False, "Cannot post multiple times between %s, you have %s left." % (
                 human_delta(POST_COOLDOWN),
-                human_delta(POST_COOLDOWN - (datetime.datetime.now() - user.last_post).total_seconds())
+                human_delta(POST_COOLDOWN - (datetime.datetime.now() - last_post).total_seconds())
             )
     return True, ""
 
@@ -46,7 +46,7 @@ def post_view():
             error = "Incorrect POST data."
         else:
             message = request.form['message']
-            val, e = post_validation(message, user)
+            val, e = post_validation(message, user.last_post)
             if not val:
                 error = e
             else:
@@ -66,4 +66,6 @@ def post_view():
 
 
     # Display the submission form
-    return render_template('post.html', user=user, error=error)
+    return render_template('post.html', user=user,
+                                        error=error,
+                                        cooldown_text=human_delta(POST_COOLDOWN))
