@@ -4,6 +4,7 @@ from confess.constants import *
 from confess.models.user import *
 from confess.models.post import *
 from confess.models.vote import *
+from confess.controllers.comment import get_comment_dict 
 
 import os
 import json
@@ -80,11 +81,16 @@ def index():
     if len(votes) < PAGE_SIZE:
         last_page = True
 
+    comments = None
+    if p_id >= 0:
+        comments = get_comment_dict(p_id)
+
     return render_template('home.html',
                             user=user,
                             posts=zip(posts, votes),
                             sel=sel, page=p,
-                            last_page=last_page, p_id=p_id)
+                            last_page=last_page, p_id=p_id,
+                            comments=comments)
 
 
 def gen_vote_status(final, c):

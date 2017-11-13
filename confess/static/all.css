@@ -87,7 +87,15 @@ body head {
 }
 
 .comments {
-  color: black;
+  max-width: 70rem;
+  margin: 0 auto;
+  font-family: 'Source Code Pro';
+}
+
+.comment {
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .item-body {
@@ -164,4 +172,38 @@ h3, .ta, .error {
 .time {
   color: #c3c3c3;
   font-size: 0.8em;
+}
+
+.collapse {
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.collapse:hover {
+  text-decoration: underline;
+}
+
+.comment-body {
+  padding-top: 1rem;
+  font-size: 1.2em;
+  max-height: 10.7rem;
+  overflow: hidden;
+}
+
+.comment-footer {
+  font-size: 0.8em;
+  padding-top: 0.5rem;
+}
+
+.reply {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-comment-box {
+  padding-left: 1rem; 
 }

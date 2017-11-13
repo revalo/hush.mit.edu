@@ -2,16 +2,16 @@
 {% block title %}submit{% endblock %}
 {% block navbody %}
 <div class="items tc">
-	<form action="" method="post">
-		<div class="blurb">
-			<i>Please think twice before posting something hurtful.</i> <br>
-			You can only post once every day.
-		</div>
-	    <textarea name="message" class="ta" rows="7" cols="60"></textarea>
-	    <p class="error">{{ error }}</p>
-	    <button name="s" value="s" class="ui button sb">
-	      Submit
-	    </button>
+    <form action="" method="post">
+        <div class="blurb">
+            <i>Please think twice before posting something hurtful.</i> <br>
+            You can only post once {{ cooldown_text }}.
+        </div>
+        <textarea name="message" class="ta" rows="7" cols="60"></textarea>
+        <p class="error">{{ error }}</p>
+        <button name="s" value="s" class="ui button sb">
+          Submit
+        </button>
     </form>
 </div>
 {% endblock %}
