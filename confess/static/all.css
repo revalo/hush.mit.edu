@@ -207,3 +207,7 @@ h3, .ta, .error {
 .main-comment-box {
   padding-left: 1rem; 
 }
+
+.smol {
+  font-size: 0.8em;
+}

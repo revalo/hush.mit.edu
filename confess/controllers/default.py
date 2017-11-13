@@ -4,6 +4,7 @@ from confess.constants import *
 from confess.models.user import *
 from confess.models.post import *
 from confess.models.vote import *
+from confess.models.comment import *
 from confess.controllers.comment import get_comment_dict 
 
 import os
@@ -66,9 +67,11 @@ def index():
 
     # This iteration is slow, but since it's only PAGE_SIZE for now, it's kinda fine
     votes = []
+    comment_counts = []
     if user:
         for pp in posts:
             v = Vote.query.filter((Vote.post_id == pp.id) & (Vote.user == user.id)).first()
+            comment_counts.append(Comment.query.filter_by(post_id = pp.id).count())
             if v:
                 votes.append(v.value)
             else:
@@ -83,14 +86,19 @@ def index():
 
     comments = None
     if p_id >= 0:
-        comments = get_comment_dict(p_id)
+        comments = get_comment_dict(p_id, user)
+
+    error = None
+    if 'error' in request.args:
+        error = request.args['error']
+        error = None if error == '' else error
 
     return render_template('home.html',
                             user=user,
-                            posts=zip(posts, votes),
+                            posts=zip(posts, votes, comment_counts),
                             sel=sel, page=p,
                             last_page=last_page, p_id=p_id,
-                            comments=comments)
+                            comments=comments, error=error)
 
 
 def gen_vote_status(final, c):
@@ -131,6 +139,66 @@ def cast_vote(id, vote):
     if my_vote.value == vote_parsed:
         # Repeating the same vote means removing the vote.
         Vote.query.filter_by(id=my_vote.id).delete()
+
+        if vote_parsed > 0:
+            # Original vote was upvote
+            post.upvotes -= 1
+        else:
+            # Original vote was downvote
+            post.downvotes -= 1
+
+        db.session.commit()
+        return gen_vote_status(0, post.upvotes - post.downvotes)
+
+    # Else we just change the value.
+    my_vote.value = vote_parsed
+
+    if vote_parsed > 0:
+        # Downvote -> Upvote
+        post.downvotes -= 1
+        post.upvotes += 1
+    else:
+        post.downvotes += 1
+        post.upvotes -= 1
+
+    db.session.commit()
+    return gen_vote_status(vote_parsed, post.upvotes - post.downvotes)
+
+@app.route('/comment/vote/<int:id>/<vote>')
+@requires_auth()
+def cast_comment_vote(id, vote):
+    my_votes = list(CommentVote.query.filter((CommentVote.comment_id == id) & (CommentVote.user == user.id)))
+    assert len(my_votes) <= 1
+
+    post = Comment.query.filter_by(id=id).first()
+    if not post:
+        return "Post doesn't exist."
+
+    if vote == "upvote":
+        vote_parsed = 1
+    elif vote == "downvote":
+        vote_parsed = -1
+    else:
+        return "Incorrect vote type."
+
+    if len(my_votes) == 0:
+        # Never voted
+        v = CommentVote(comment_id=id, user=user.id, value=vote_parsed)
+        db.session.add(v)
+
+        if vote_parsed > 0:
+            post.upvotes += 1
+        else:
+            post.downvotes += 1
+
+        db.session.commit()
+        return gen_vote_status(vote_parsed, post.upvotes - post.downvotes)
+
+    my_vote = my_votes[0]
+
+    if my_vote.value == vote_parsed:
+        # Repeating the same vote means removing the vote.
+        CommentVote.query.filter_by(id=my_vote.id).delete()
 
         if vote_parsed > 0:
             # Original vote was upvote

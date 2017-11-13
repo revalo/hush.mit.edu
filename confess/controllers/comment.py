@@ -78,16 +78,26 @@ def post_reply(c_id):
     return redirect('/?%i&error=%s' % (parent.post_id, error))
 
 
-def comment_dfs(comment, level=0):
+def comment_dfs(comment, user, level=0):
     d = []
     # Do something
-    for reply in comment.replies:
-        d.append({'comment': reply, 'children': comment_dfs(reply, level+1), 'level': level+1})
+    for reply in comment.replies.order_by(Comment.hn_score.desc()):
+        value = 0
+        if user:
+            v = CommentVote.query.filter((CommentVote.comment_id == reply.id) & (CommentVote.user == user.id)).first()
+            if v:
+                value = v.value
+        d.append({'comment': reply, 'children': comment_dfs(reply, user, level+1), 'level': level+1, 'vote': value})
     return d
 
 # XXX This is O(n) queries, yikes
-def get_comment_dict(p_id):
+def get_comment_dict(p_id, user):
     d = []
-    for comment in Comment.query.filter_by(parent=None).order_by(Comment.hn_score.desc()):
-        d.append({'comment': comment, 'children': comment_dfs(comment), 'level': 0})
+    for comment in Comment.query.filter((Comment.post_id == p_id) & (Comment.parent == None)).order_by(Comment.hn_score.desc()):
+        value = 0
+        if user:
+            v = CommentVote.query.filter((CommentVote.comment_id == comment.id) & (CommentVote.user == user.id)).first()
+            if v:
+                value = v.value
+        d.append({'comment': comment, 'children': comment_dfs(comment, user), 'level': 0, 'vote': value})
     return d

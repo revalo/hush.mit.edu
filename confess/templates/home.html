@@ -9,14 +9,14 @@
       {% if page-1 >= 0 %}<a href="{{ modify_query(p=page-1) }}" class="np">[previous]</a>{% endif %}
       {% if not last_page %}<a href="{{ modify_query(p=page+1) }}" class="np">[next]</a>{% endif %}
     </div>
-    {% for post, vote in posts %}
+    {% for post, vote, comment_count in posts %}
       <div class="item">
           <div class="item-header">
              <a href="/?{{ post.id }}" class="permalink">#{{ post.id }}</a>
              <i id="uvote-{{ post.id }}" value="{{ post.id }}" class="caret up icon uvote {% if vote > 0 %}clicked{% endif %}"></i>
              <span id="score-{{ post.id }}" class="score">{{ post.upvotes - post.downvotes }}</span>
              <i id="dvote-{{ post.id }}" value="{{ post.id }}" class="caret down icon dvote {% if vote < 0 %}clicked{% endif %}"></i>
-             <a href="/?{{ post.id }}" class="comments">[comments]</a>
+             <a href="/?{{ post.id }}" class="comments">[{{ comment_count }} comments]</a>
              <span class="time">{{ post.timestamp | humanize }}</span>
           </div>
           <div class="item-body">
@@ -47,8 +47,10 @@
         {% for comment in comments recursive %}
           <div class="comment" style="padding-left: {{ 1 + comment.level * 2.5 }}rem;">
             <div class="comment-header">
-              <i class="caret up icon uvote"></i>
-              <i class="caret down icon dvote"></i>
+              <span id="score-{{ comment.comment.id }}" class="score smol">{{ comment.comment.upvotes - comment.comment.downvotes }}</span>
+              <i id="uvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret up icon uvote commentv {% if comment.vote > 0 %}clicked{% endif %}"></i>
+              <i id="dvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret down icon dvote commentv {% if comment.vote < 0 %}clicked{% endif %}"></i>
+
               <span class="time">{{ comment.comment.timestamp | humanize }}</span> <span class="collapse" cid="{{ comment.comment.id }}">[-]</span>
             </div>
             <div class="comment-body">
@@ -75,5 +77,11 @@
           </div>
         {% endfor %}
         </div>
+    {% endif %}
+
+    {% if error is not none %}
+    <script>
+      alert('{{ error }}');
+    </script>
     {% endif %}
 {% endblock %}

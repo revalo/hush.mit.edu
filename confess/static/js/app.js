@@ -2,10 +2,10 @@ $(document).ready(function() {
     $('.item-body').readmore();
     
     $('.uvote').click(function() {
-        vote($(this).attr('value'), 'upvote');
+        vote($(this).attr('value'), 'upvote', $(this).hasClass('commentv'));
     });
     $('.dvote').click(function() {
-        vote($(this).attr('value'), 'downvote');
+        vote($(this).attr('value'), 'downvote', $(this).hasClass('commentv'));
     });
 
     $('.reply').click(function() {
@@ -29,19 +29,22 @@ $(document).ready(function() {
     })
 });
 
-function vote(id, vote) {
-    $.get('/vote/' + id + '/' + vote, function(res) {
+function vote(id, vote, comment) {
+    var api = comment ? '/comment/vote/' : '/vote/';
+    var v_s = comment ? 'comment-' : '';
+
+    $.get(api + id + '/' + vote, function(res) {
         res = $.parseJSON(res);
 
         var v = res.vote;
-        $('#uvote-' + id).removeClass('clicked');
-        $('#dvote-' + id).removeClass('clicked');
+        $('#uvote-' + v_s + id).removeClass('clicked');
+        $('#dvote-' + v_s + id).removeClass('clicked');
 
         console.log(v);
-        if (v == 1) $('#uvote-' + id).addClass('clicked');
-        if (v == -1) $('#dvote-' + id).addClass('clicked');
+        if (v == 1) $('#uvote-' + v_s + id).addClass('clicked');
+        if (v == -1) $('#dvote-' + v_s + id).addClass('clicked');
 
-        $('#score-' + id).text(res.count);
+        $('#score-' + v_s + id).text(res.count);
     }).fail(function() {
         alert('You need to login to do that :/');
     });
