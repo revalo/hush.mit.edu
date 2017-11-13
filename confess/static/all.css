@@ -211,3 +211,7 @@ h3, .ta, .error {
 .smol {
   font-size: 0.8em;
 }
+
+.pl {
+  padding-left: 1rem;
+}

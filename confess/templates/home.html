@@ -43,7 +43,7 @@
         </form>
       </div>
       {% else %}
-      <p class="error">You must <a href="/login">login</a> to add comments.</p>
+      <p class="error pl">You must <a href="/login?redirect=/?{{ p_id }}">login</a> to add comments.</p>
       {% endif %}
       <div class="comments">
         {% for comment in comments recursive %}
