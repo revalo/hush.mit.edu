@@ -42,7 +42,7 @@ def post_main_comment(p_id):
                     upvotes=0,
                     downvotes=0)
 
-        user.last_post = n + datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
+        user.last_post = n - datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
 
         db.session.add(c)
         db.session.commit()

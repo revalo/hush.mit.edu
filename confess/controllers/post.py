@@ -58,7 +58,7 @@ def post_view():
                          upvotes=0,
                          downvotes=0
                          )
-                user.last_post = n + datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
+                user.last_post = n - datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
 
                 db.session.add(p)
                 db.session.commit()
