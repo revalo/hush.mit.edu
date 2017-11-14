@@ -26,7 +26,14 @@ $(document).ready(function() {
             div.addClass('hidden');
             $(this).text('[+]');
         }
-    })
+    });
+
+    $('.sb').click(function() {
+        var myB = $(this);
+        window.onSubmit = function(token) {
+            myB.closest('form').submit();
+        };
+    });
 });
 
 function vote(id, vote, comment) {

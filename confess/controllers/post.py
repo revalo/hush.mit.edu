@@ -42,8 +42,10 @@ def post_view():
     error = ""
 
     if request.method == 'POST':
+        if not validate_recaptcha(request.form):
+            error = "Incorrect CAPTCHA."
         # Perform validation
-        if 'message' not in request.form:
+        elif 'message' not in request.form:
             error = "Incorrect POST data."
         else:
             message = request.form['message']
@@ -58,7 +60,6 @@ def post_view():
                          upvotes=0,
                          downvotes=0
                          )
-                user.last_post = n - datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
 
                 db.session.add(p)
                 db.session.commit()

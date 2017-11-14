@@ -7,6 +7,7 @@ from confess.models.user import *
 from flask import (redirect, request)
 from functools import wraps
 import datetime
+import requests
 
 def gen_uuid():
     return str(uuid.uuid4()).replace('-', '')
@@ -16,7 +17,6 @@ def encode_token(user):
 
 def decode_token(token):
     return jwt.decode(token, SECRET, algorithms=['HS256'])['id']
-
 
 epoch = datetime.datetime(1970, 1, 1)
 def epoch_seconds(date):
@@ -98,3 +98,12 @@ def val_form_keys(keys):
 
 def get_ts(dt):
     return (dt-datetime.datetime(1970,1,1)).total_seconds()
+
+def validate_recaptcha(form):
+    if "g-recaptcha-response" not in form:
+        return False
+    response = form['g-recaptcha-response']
+    api = "https://www.google.com/recaptcha/api/siteverify"
+    r = requests.post(api, data={'secret': RECAPTCHA_SECRET, 'response': response})
+    j = r.json()
+    return j['success']

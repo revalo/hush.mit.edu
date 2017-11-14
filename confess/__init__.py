@@ -12,9 +12,11 @@ from flask import request
 from werkzeug import url_encode
 
 import confess.config as config
+import confess.constants as constants
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['APP_NAME'] = config.APP_NAME
+app.config['RECAPTCHA_KEY'] = constants.RECAPTCHA_KEY
 app.secret_key = config.SECRET
 
 # Debug

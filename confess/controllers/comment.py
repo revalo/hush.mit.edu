@@ -31,7 +31,9 @@ def post_main_comment(p_id):
 
     message = request.form['message']
     val, e = post_validation(message, user.last_post)
-    if not val:
+    if not validate_recaptcha(request.form):
+        error = "Incorrect RECAPTCHA."
+    elif not val:
         error = e
     else:
         n = datetime.datetime.now()
@@ -41,8 +43,6 @@ def post_main_comment(p_id):
                     timestamp=n,
                     upvotes=0,
                     downvotes=0)
-
-        user.last_post = n - datetime.timedelta(0, random.randint(0, 300)) # Randomly add a few minutes
 
         db.session.add(c)
         db.session.commit()

@@ -5,3 +5,7 @@ CLIENT_SECRET = ""
 CLIENT_CONFIG_URL = "https://oidc.mit.edu/register/something"
 
 REGISTRATION_AT = ""
+
+# An empty thing disables it
+RECAPTCHA_KEY = ""
+RECAPTCHA_SECRET = ""
