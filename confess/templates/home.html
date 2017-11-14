@@ -3,6 +3,14 @@
 
 {% block title %}home{% endblock %}
 
+{% block meta %}
+{% if p_id >= 0 %}
+<meta property="og:type"               content="article" />
+<meta property="og:title"              content="{{ c_p }}" />
+<meta property="og:description"        content="hush.mit.edu" />
+{% endif %}
+{% endblock %}
+
 {% block navbody %}
 <div class="items">
     <div class="np-container">

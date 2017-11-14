@@ -86,8 +86,10 @@ def index():
         last_page = True
 
     comments = None
+    c_p = None
     if p_id >= 0:
         comments = get_comment_dict(p_id, user)
+        c_p = posts[0].message
 
     error = None
     if 'error' in request.args:
@@ -99,7 +101,7 @@ def index():
                             posts=zip(posts, votes, comment_counts),
                             sel=sel, page=p,
                             last_page=last_page, p_id=p_id,
-                            comments=comments, error=error)
+                        comments=comments, error=error, c_p=c_p)
 
 
 def gen_vote_status(final, c):
