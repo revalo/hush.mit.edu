@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('.item-body').readmore();
+    $('.comment-body').readmore();
     
     $('.uvote').click(function() {
         vote($(this).attr('value'), 'upvote', $(this).hasClass('commentv'));
