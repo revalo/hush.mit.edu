@@ -29,11 +29,6 @@ def post_validation(message, last_post):
         return False, "Post cannot be empty."
     if len(message) > MAX_POST_LENGTH:
         return False, "Post cannot exceed %i characters." % MAX_POST_LENGTH
-    if (datetime.datetime.now() - last_post).total_seconds() < POST_COOLDOWN:
-        return False, "Cannot post multiple times between %s, you have %s left." % (
-                human_delta(POST_COOLDOWN),
-                human_delta(POST_COOLDOWN - (datetime.datetime.now() - last_post).total_seconds())
-            )
     return True, ""
 
 @app.route('/submit', methods=['GET', 'POST'])

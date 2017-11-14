@@ -71,7 +71,6 @@ def post_reply(c_id):
             upvotes=0,
             downvotes=0,
             parent=parent)
-        user.last_post = n
 
         db.session.add(c)
         db.session.commit()
