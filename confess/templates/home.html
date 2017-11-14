@@ -47,7 +47,10 @@
             <button data-sitekey="{{ config['RECAPTCHA_KEY'] }}" data-callback="onSubmit" class="ui button sb g-recaptcha">
               Add a Comment
             </button>
-            <i>Please think twice before posting something hurtful.</i>
+            <div class="ui checkbox">
+              <input type="checkbox" name="anonymous" checked>
+              <label>Anonymous</label>
+            </div>
         </form>
       </div>
       {% else %}
@@ -61,6 +64,7 @@
               <i id="uvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret up icon uvote commentv {% if comment.vote > 0 %}clicked{% endif %}"></i>
               <i id="dvote-comment-{{ comment.comment.id }}" value="{{ comment.comment.id }}" class="caret down icon dvote commentv {% if comment.vote < 0 %}clicked{% endif %}"></i>
 
+              <span class="user">{% if comment.kerb is not none %} {{ comment.kerb }} {% endif %}</span>
               <span class="time">{{ comment.comment.timestamp | humanize }}</span> <span class="collapse" cid="{{ comment.comment.id }}">[-]</span>
             </div>
             <div class="comment-body">
@@ -77,7 +81,10 @@
                     <button data-sitekey="{{ config['RECAPTCHA_KEY'] }}" data-callback="onSubmit" class="ui button sb g-recaptcha">
                       Submit
                     </button>
-                    <i>Please think twice before posting something hurtful.</i>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="anonymous" checked>
+                      <label>Anonymous</label>
+                    </div>
                 </form>
               </div>
             </div>

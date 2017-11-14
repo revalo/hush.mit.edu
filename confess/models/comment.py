@@ -7,6 +7,10 @@ from datetime import datetime
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    
+    ## Only stored if the user unchecked the anonymous option
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     message = db.Column(db.Text)
     timestamp = db.Column(db.DateTime)
     upvotes = db.Column(db.Integer)
