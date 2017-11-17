@@ -163,6 +163,7 @@ h3, .ta, .error {
   color: #939393;
   width: max-content;
   padding: 2rem;
+  text-align: center;
 }
 
 .blurb {
