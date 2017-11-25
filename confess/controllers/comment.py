@@ -20,8 +20,13 @@ from flask import (
 )
 
 @app.route('/comment/<int:p_id>', methods=['POST'])
-@requires_auth()
+@get_user()
 def post_main_comment(p_id):
+    mit = is_mit(request)
+
+    if not mit and not user:
+        return "Connect to the MIT Network or login to post!", 400
+
     error = ""
     if 'message' not in request.form:
         return "Incorrect POST data.", 400
@@ -34,8 +39,11 @@ def post_main_comment(p_id):
     if "anonymous" in request.form:
         anonymous = True
 
+    if not anonymous and mit and not user:
+        return "You can't use the non-anonymous comment without logging in.", 400
+
     message = request.form['message']
-    val, e = post_validation(message, user.last_post)
+    val, e = post_validation(message)
     if not validate_recaptcha(request.form):
         error = "Incorrect RECAPTCHA."
     elif not val:
@@ -60,8 +68,13 @@ def post_main_comment(p_id):
     return redirect('/?%i&error=%s' % (p_id, error))
 
 @app.route('/reply/<int:c_id>', methods=['POST'])
-@requires_auth()
+@get_user()
 def post_reply(c_id):
+    mit = is_mit(request)
+
+    if not mit and not user:
+        return "Connect to the MIT Network or login to post!", 400
+
     error = ""
     if 'message' not in request.form:
         return "Incorrect POST data.", 400
@@ -74,8 +87,11 @@ def post_reply(c_id):
     if "anonymous" in request.form:
         anonymous = True
 
+    if not anonymous and mit and not user:
+        return "You can't use the non-anonymous comment without logging in.", 400
+
     message = request.form['message']
-    val, e = post_validation(message, user.last_post)
+    val, e = post_validation(message)
     if not val:
         error = e
     else:

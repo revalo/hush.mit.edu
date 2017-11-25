@@ -6,8 +6,8 @@
 {% block meta %}
 {% if p_id >= 0 %}
 <meta property="og:type"               content="article" />
-<meta property="og:title"              content="{{ c_p }}" />
-<meta property="og:description"        content="hush.mit.edu" />
+<meta property="og:title"              content="hush.mit.edu" />
+<meta property="og:description"        content="{{ c_p }}" />
 {% endif %}
 {% endblock %}
 
@@ -39,7 +39,7 @@
     </div>
 
     {% if p_id >= 0 %}
-      {% if user is not none %}
+      {% if user is not none or mit %}
       <div class="main-comment-box">
         <form action="/comment/{{ p_id }}" method="post">
             <textarea name="message" class="ta" rows="7" cols="70"></textarea>
@@ -54,7 +54,7 @@
         </form>
       </div>
       {% else %}
-      <p class="error pl">You must <a href="/login?redirect=/?{{ p_id }}">login</a> to add comments.</p>
+      <p class="error pl">You must be connected to the MIT Network or <a href="/login?redirect=/?{{ p_id }}">login</a> to add comments.</p>
       {% endif %}
       <div class="comments">
         {% for comment in comments recursive %}
@@ -71,7 +71,7 @@
               {{ comment.comment.message | nl2br }}
             </div>
             <div class="comment-footer">
-              {% if user is not none %}
+              {% if user is not none or mit %}
               <span class="reply" cid="{{ comment.comment.id }}">reply</span>
               {% endif %}
               <div id="reply-box-{{ comment.comment.id }}" class="comment-box hidden">

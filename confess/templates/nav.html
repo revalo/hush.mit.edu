@@ -11,7 +11,11 @@
             <a href="/logout">[logout]</a>
         </div>
     {% else %}
-        <div class="login-container"><a href="/login">[login]</a></div>
+        <div class="login-container">
+            <div class="mobile-only"><a href="/submit">[submit]</a></div>
+            <div class="screen-only"><a href="/submit">[submit anonymously]</a></div>
+            <a href="/login">[login]</a>
+        </div>
     {% endif %}
 </div>
 <div class="sub-selector">

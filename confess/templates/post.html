@@ -2,6 +2,7 @@
 {% block title %}submit{% endblock %}
 {% block navbody %}
 <div class="items tc">
+    {% if mit or user %}
     <form id="post-form" action="" method="post">
         <div class="blurb">
             <i>Please think twice before posting something hurtful.</i> <br>
@@ -13,5 +14,10 @@
           Submit
         </button>
     </form>
+    {% else %}
+    <div class="blurb">
+        You need to be connected to the MIT Network to submit!
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -8,6 +8,13 @@ from flask import (redirect, request)
 from functools import wraps
 import datetime
 import requests
+from netaddr import *
+
+# Import Whitelisted CIDR cache
+mit_networks = []
+with open('confess/static/mit_cidr.txt', 'r') as f:
+    for line in f:
+        mit_networks.append(IPNetwork(line.strip()))
 
 def gen_uuid():
     return str(uuid.uuid4()).replace('-', '')
@@ -107,3 +114,20 @@ def validate_recaptcha(form):
     r = requests.post(api, data={'secret': RECAPTCHA_SECRET, 'response': response})
     j = r.json()
     return j['success']
+
+def is_mit(request):
+    # This is to handle nginx being a proxy for this app.
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+
+    # Turn it into a netaddr object
+    try:
+        ip = IPAddress(ip)
+    except:
+        return False
+
+    for network in mit_networks:
+        if ip in network:
+            return True
+            
+    return False
+

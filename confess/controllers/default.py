@@ -29,6 +29,8 @@ def favicon():
 @app.route('/')
 @get_user()
 def index():
+    mit = is_mit(request)
+
     # Find post id if any
     p_id = -1
     for k, v in request.args.items():
@@ -101,7 +103,8 @@ def index():
                             posts=zip(posts, votes, comment_counts),
                             sel=sel, page=p,
                             last_page=last_page, p_id=p_id,
-                        comments=comments, error=error, c_p=c_p)
+                            comments=comments, error=error, c_p=c_p,
+                            mit=mit)
 
 
 def gen_vote_status(final, c):
