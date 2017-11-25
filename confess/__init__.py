@@ -58,4 +58,7 @@ from confess.models import db
 db.app = app
 db.init_app(app)
 
+if config.ENABLE_FACEBOOK:
+    import confess.facebook_worker
+    
 import confess.controllers # registers controllers
