@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 def post_to_facebook(message, link):
     url = "https://graph.facebook.com/v2.11/{page_id}/feed".format(page_id=FACEBOOK_PAGE_ID)
-    r = requests.post(url, data={'message': message, 'access_token': FACEBOOK_TOKEN, 'link': link, 'name': 'Discuss'})
+    r = requests.post(url, data={'message': message, 'access_token': FACEBOOK_TOKEN, 'link': link})
     j = r.json()
 
     if "error" in j:
