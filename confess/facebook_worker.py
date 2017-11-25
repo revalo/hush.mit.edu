@@ -23,7 +23,7 @@ def facebook_post_worker():
     db.session.execute('LOCK TABLE facebook_post IN ACCESS EXCLUSIVE MODE;')
 
     # Check if there is new content
-    hot = db.session.query(Post).order_by(Post.hn_score.desc()).limit(3)
+    hot = db.session.query(Post).order_by(Post.hn_score.desc()).limit(FACEBOOK_TOP_N)
     for item in hot:
         existing = FacebookPost.query.filter_by(post_id=item.id).first()
         if not existing:
