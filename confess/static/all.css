@@ -216,3 +216,12 @@ h3, .ta, .error {
 .pl {
   padding-left: 1rem;
 }
+
+.white {
+  color: white !imporant;
+}
+
+.fb-link {
+  margin-right: 1rem;
+  float: right;
+}

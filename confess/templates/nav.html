@@ -19,9 +19,16 @@
     {% endif %}
 </div>
 <div class="sub-selector">
-    <a href="/"><div class="selector {% if sel == 'hot' %}selected{% endif %}">[hot]</div></a>
-    <a href="/?s=new"><div class="selector {% if sel == 'new' %}selected{% endif %}">[new]</div></a>
-    <a href="/?s=top"><div class="selector {% if sel == 'top' %}selected{% endif %}">[top]</div></a>
+    <div>
+        <a href="/"><div class="selector {% if sel == 'hot' %}selected{% endif %}">[hot]</div></a>
+        <a href="/?s=new"><div class="selector {% if sel == 'new' %}selected{% endif %}">[new]</div></a>
+        <a href="/?s=top"><div class="selector {% if sel == 'top' %}selected{% endif %}">[top]</div></a>
+    </div>
+    {% if config['FACEBOOK'] %}
+        <div class="fb-link">
+            <a href="{{ config['FACEBOOK_LINK'] }}"><div class="selector white">[facebook]</div></a>
+        </div>
+    {% endif %}
 </div>
 <div class="spacer"></div>
 {% block navbody %}

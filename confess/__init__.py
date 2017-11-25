@@ -17,6 +17,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['APP_NAME'] = config.APP_NAME
 app.config['RECAPTCHA_KEY'] = constants.RECAPTCHA_KEY
+app.config['FACEBOOK'] = config.ENABLE_FACEBOOK
+app.config['FACEBOOK_LINK'] = 'http://facebook.com/' + config.FACEBOOK_PAGE_ID
 app.secret_key = config.SECRET
 
 # Debug
@@ -60,5 +62,5 @@ db.init_app(app)
 
 if config.ENABLE_FACEBOOK:
     import confess.facebook_worker
-    
+
 import confess.controllers # registers controllers
