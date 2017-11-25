@@ -11,7 +11,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 def post_to_facebook(message, link):
     url = "https://graph.facebook.com/v2.11/{page_id}/feed".format(page_id=FACEBOOK_PAGE_ID)
     r = requests.post(url, data={'message': message, 'access_token': FACEBOOK_TOKEN, 'link': link, 'name': 'Discuss'})
-    return r
+    return r.json()
 
 sched = BackgroundScheduler()
 sched.start()
@@ -30,10 +30,11 @@ def facebook_post_worker():
             try:
                 message = "#{id} {message}".format(id=item.id,
                                                    message=item.message)
-                post_to_facebook(message, 'http://hush.mit.edu' + '/?' + str(item.id))
-                f = FacebookPost(post_id=item.id)
-                db.session.add(f)
-            except:
+                if not "error" in post_to_facebook(message, 'https://hush.mit.edu' + '/?' + str(item.id)):
+                    f = FacebookPost(post_id=item.id)
+                    db.session.add(f)
+            except Exception as e:
+                print e
                 pass
 
     # Release table lock
