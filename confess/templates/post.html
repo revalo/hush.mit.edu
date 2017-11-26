@@ -1,23 +1,33 @@
 {% extends "nav.html" %}
 {% block title %}submit{% endblock %}
 {% block navbody %}
-<div class="items tc">
-    {% if mit or user %}
-    <form id="post-form" action="" method="post">
-        <div class="blurb">
-            <i>Please think twice before posting something hurtful.</i> <br>
-            You can post as many times as you like.
-        </div>
-        <textarea name="message" class="ta" rows="7" cols="60"></textarea>
-        <p class="error">{{ error }}</p>
-        <button class="ui button sb g-recaptcha" data-sitekey="{{ config['RECAPTCHA_KEY'] }}" data-callback="onSubmit">
-          Submit
-        </button>
-    </form>
-    {% else %}
-    <div class="blurb">
-        You need to be connected to the MIT Network or login to submit!
+    <div class="items tc">
+        {% if mit or user %}
+            <form id="post-form" action="" method="post">
+                <div class="blurb">
+                    <i>Please think twice before posting something hurtful.</i> <br>
+                    You can post as many times as you like.
+                </div>
+                <textarea name="message" class="ta" rows="7" cols="60"></textarea>
+                <p class="error">{{ error }}</p>
+                <button class="ui button sb g-recaptcha" data-sitekey="{{ config['RECAPTCHA_KEY'] }}" data-callback="onSubmit">
+                Submit
+                </button>
+            </form>
+            <div style="
+                font-family: 'Source Code Pro';
+                font-size: 0.8em;
+                margin: 0 auto;
+                width: max-content;
+                padding: 1rem;
+                text-align: center;
+                ">
+                <a href="https://github.com/revalo/hush.mit.edu/blob/master/anonymity.md">How do I know that this is anonymous?</a>
+            </div>
+        {% else %}
+            <div class="blurb">
+                You need to be connected to the MIT Network or login to submit!
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 {% endblock %}
