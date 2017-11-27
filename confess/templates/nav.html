@@ -8,25 +8,29 @@
         <div class="login-container"><span class="screen-only">{{ user.email.split('@')[0] }} &nbsp;</span>
             <div class="mobile-only"><a href="/submit">[submit]</a></div>
             <div class="screen-only"><a href="/submit">[submit anonymously]</a></div>
+            &nbsp;
             <a href="/logout">[logout]</a>
         </div>
     {% else %}
         <div class="login-container">
             <div class="mobile-only"><a href="/submit">[submit]</a></div>
             <div class="screen-only"><a href="/submit">[submit anonymously]</a></div>
+            &nbsp;
             <a href="/login">[login]</a>
         </div>
     {% endif %}
 </div>
 <div class="sub-selector">
     <div>
-        <a href="/"><div class="selector {% if sel == 'hot' %}selected{% endif %}">[hot]</div></a>
-        <a href="/?s=new"><div class="selector {% if sel == 'new' %}selected{% endif %}">[new]</div></a>
-        <a href="/?s=top"><div class="selector {% if sel == 'top' %}selected{% endif %}">[top]</div></a>
+        <a href="/"><div class="selector {% if sel == 'hot' %}selected{% endif %}">hot</div></a>
+        <a href="/?s=new"><div class="selector {% if sel == 'new' %}selected{% endif %}">new</div></a>
+        <a href="/?s=top"><div class="selector {% if sel == 'top' %}selected{% endif %}">top</div></a>
     </div>
     {% if config['FACEBOOK'] %}
         <div class="fb-link">
-            <a href="{{ config['FACEBOOK_LINK'] }}"><div class="selector white">[facebook]</div></a>
+            <a href="{{ config['FACEBOOK_LINK'] }}">
+                <i class="facebook square icon fb-ic"></i>
+            </a>
         </div>
     {% endif %}
 </div>
