@@ -20,6 +20,19 @@ body head {
   margin: 0 auto;
 }
 
+.hp {
+  color: #c2c2c2;
+}
+
+.hp-i {
+  font-family: 'Open Sans';
+  font-size: 0.8em;
+}
+
+.show-hidden {
+  cursor: pointer;
+}
+
 .selector {
   height: 100%;
   float: left;

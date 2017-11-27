@@ -27,7 +27,14 @@
              <span class="time">{{ post.timestamp | humanize }}</span>
           </div>
           <div class="item-body">
-              {{ post.message | nl2br }} 
+              {% if post.upvotes - post.downvotes > config['MIN_POST_SCORE'] %}
+                  {{ post.message | nl2br }}
+              {% else %}
+                  <span class="hp-i">Post hidden due to low score,&nbsp;<a postid="{{ post.id }}" class="show-hidden">[show]</a></span>
+                  <div id="hidden-for-{{ post.id }}" class="hidden hp">
+                      {{ post.message | nl2br }}
+                  </div>
+              {% endif %}
           </div>
       </div>
     {% endfor %}

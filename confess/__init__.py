@@ -13,10 +13,13 @@ from werkzeug import url_encode
 
 import confess.config as config
 import confess.constants as constants
+
+# All dem configs
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['APP_NAME'] = config.APP_NAME
 app.config['RECAPTCHA_KEY'] = constants.RECAPTCHA_KEY
+app.config['MIN_POST_SCORE'] = config.MIN_POST_SCORE
 app.config['FACEBOOK'] = config.ENABLE_FACEBOOK
 app.config['FACEBOOK_LINK'] = 'http://facebook.com/' + config.FACEBOOK_PAGE_ID
 app.secret_key = config.SECRET

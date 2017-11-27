@@ -35,6 +35,11 @@ $(document).ready(function() {
             myB.closest('form').submit();
         };
     });
+
+    $('.show-hidden').click(function() {
+        var id = $(this).attr('postid');
+        $('#hidden-for-' + id).toggleClass('hidden');
+    });
 });
 
 function vote(id, vote, comment) {
