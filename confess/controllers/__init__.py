@@ -4,3 +4,4 @@ import confess.controllers.default
 import confess.controllers.login
 import confess.controllers.post
 import confess.controllers.comment
+import confess.controllers.ratelimit

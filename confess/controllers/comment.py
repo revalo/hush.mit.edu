@@ -6,6 +6,7 @@ from confess.models.post import *
 from confess.models.vote import *
 from confess.models.comment import *
 from confess.controllers.post import post_validation
+from confess.controllers.ratelimit import is_ratelimited
 
 import os
 import json
@@ -26,6 +27,9 @@ def post_main_comment(p_id):
 
     if not mit and not user:
         return "Connect to the MIT Network or login to post!", 400
+
+    if is_ratelimited(request):
+        return "You're posting too fast, wait before posting, this usually a few minutes.", 400
 
     error = ""
     if 'message' not in request.form:
@@ -74,6 +78,9 @@ def post_reply(c_id):
 
     if not mit and not user:
         return "Connect to the MIT Network or login to post!", 400
+
+    if is_ratelimited(request):
+        return "You're posting too fast, wait before posting, this usually a few minutes.", 400
 
     error = ""
     if 'message' not in request.form:

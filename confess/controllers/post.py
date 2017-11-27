@@ -5,6 +5,8 @@ from confess.constants import *
 from confess.models.user import *
 from confess.models.post import *
 
+from confess.controllers.ratelimit import is_ratelimited
+
 import os
 import random
 import datetime
@@ -49,6 +51,8 @@ def post_view():
     if request.method == 'POST':
         if not mit and not user:
             error = "You need to be connected to the MIT Network or login to post :/"
+        elif is_ratelimited(request):
+            error = "You're posting too fast, wait for a few minutes before posting again."
         elif not validate_recaptcha(request.form):
             error = "Incorrect CAPTCHA."
         # Perform validation

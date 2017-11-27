@@ -115,9 +115,12 @@ def validate_recaptcha(form):
     j = r.json()
     return j['success']
 
-def is_mit(request):
+def get_ip(request):
     # This is to handle nginx being a proxy for this app.
-    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    return request.headers.get('X-Forwarded-For', request.remote_addr)
+
+def is_mit(request):
+    ip = get_ip(request) 
 
     # Turn it into a netaddr object
     try:
